@@ -39,4 +39,25 @@ Spotify.exchangeCode = async (code) => {
     })
 }
 
+Spotify.me = async (refresh) => {
+    const opts = {
+        url: 'https://api.spotify.com/v1/me',
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${refresh}`
+        }
+    }
+
+    return request(opts).then(res => {
+        if (res.statusCode == 200) {
+            return res.body
+        } else {
+            return false
+        }
+    }).catch(err => {
+        console.log(err)
+        return false
+    })
+}
+
 module.exports = Spotify
