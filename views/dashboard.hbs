@@ -11,8 +11,10 @@
 <div class="articles">
     <h2>Latest News Articles</h2>
 
-    <section>
-        <h3>News Article name</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit natus, consequuntur aliquam reprehenderit excepturi illum cum doloremque, officia saepe voluptates fuga modi rem eligendi quia vitae beatae adipisci porro. Eligendi sint omnis beatae vel veniam soluta culpa unde hic atque!</p>
-    </section>
+    {{#each articles}}
+        <section>
+            <h3>{{title}}</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit natus, consequuntur aliquam reprehenderit excepturi illum cum doloremque, officia saepe voluptates fuga modi rem eligendi quia vitae beatae adipisci porro. Eligendi sint omnis beatae vel veniam soluta culpa unde hic atque!</p>
+        </section>
+    {{/each}}
 </div>

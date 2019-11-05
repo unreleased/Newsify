@@ -19,13 +19,12 @@ router.get('/dashboard', async function(req, res, next) {
     console.log(req.session.data)
 
     if (req.session.data) {
-        const user     = await Spotify.me(req.session.data.access_token)
-        const articles = await News.getHeadlines(user.country)
+        const user = await Spotify.me(req.session.data.access_token)
+        const news = await News.getHeadlines(user.country)
         console.log(user)
-        console.log(articles)
         return res.render('dashboard', {
             user: user,
-            articles: articles
+            articles: news.articles
         });
     } else {
         return res.redirect('/spotify')
@@ -36,7 +35,7 @@ router.get('/callback', async function(req, res, next) {
     const code = req.query.code
     const data = await Spotify.exchangeCode(code)
 
-    // Set 
+    // Set their spotify data to their session
     if (data) {
         req.session.data = data
         return res.redirect('/spotify/dashboard')
