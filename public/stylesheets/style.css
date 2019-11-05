@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+.articles {
+  margin-top: 55px;
+}
+
+.articles section {
+  padding: 20px;
+  box-sizing: border-box;
+}

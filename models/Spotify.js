@@ -49,6 +49,7 @@ Spotify.me = async (refresh) => {
     }
 
     return request(opts).then(res => {
+        console.log(res.body)
         if (res.statusCode == 200) {
             return res.body
         } else {

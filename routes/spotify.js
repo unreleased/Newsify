@@ -17,11 +17,13 @@ router.get('/login', function(req, res, next) {
     return res.redirect(url)
 });
 
-router.get('/dashboard', function(req, res, next) {
-    console.log(req.session)
+router.get('/dashboard', async function(req, res, next) {
+    console.log(req.session.data)
 
     if (req.session.data) {
-        return res.render('dashboard');
+        const me = await Spotify.me(req.session.data.access_token)
+        console.log(me)
+        return res.render('dashboard', me);
     } else {
         return res.redirect('/spotify')
     }
