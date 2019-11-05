@@ -2,9 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const dotenv  = require('dotenv').config()
 const Spotify = require('../models/Spotify')
-
-
-console.log(process.env.SPOTIFY_CLIENT_ID)
+const News    = require('../models/News')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,9 +19,14 @@ router.get('/dashboard', async function(req, res, next) {
     console.log(req.session.data)
 
     if (req.session.data) {
-        const me = await Spotify.me(req.session.data.access_token)
-        console.log(me)
-        return res.render('dashboard', me);
+        const user     = await Spotify.me(req.session.data.access_token)
+        const articles = await News.getHeadlines(user.country)
+        console.log(user)
+        console.log(articles)
+        return res.render('dashboard', {
+            user: user,
+            articles: articles
+        });
     } else {
         return res.redirect('/spotify')
     }
