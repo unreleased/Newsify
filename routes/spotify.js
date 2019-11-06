@@ -16,9 +16,8 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/dashboard', async function(req, res, next) {
-    console.log(req.session.data)
-
     if (req.session.data) {
+        console.log(req.session.data.access_token)
         const user = await Spotify.me(req.session.data.access_token)
         const news = await News.getHeadlines(user.country)
         return res.render('dashboard', {
