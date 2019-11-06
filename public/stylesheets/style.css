@@ -16,4 +16,39 @@ a {
   padding: 20px;
   box-sizing: border-box;
   background-color: #f3f3f3;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
+
+.articles section img {
+  max-width: 200px;
+}
+
+.articles .article-text {
+  margin-left: 20px;
+}
+
+.articles .article-text h3 {
+  margin-top: 0;
+}
+
+.btn {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.getSongs {
+  background-color: red;
+}
+
+.visitArticle {
+  background-color: deepskyblue;
+}
+
