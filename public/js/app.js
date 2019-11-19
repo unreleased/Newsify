@@ -6,17 +6,28 @@ $(document).ready(function() {
             content : parent.find("p").text()
         }
 
-        $.ajax({
+        const opts = {
             url: '/api/search',
             method: 'POST',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
             data: {
                 article: article
-            },
-            success: function(resp) {
-                console.log(resp)
             }
+        }
+
+        axios(opts).then(res => {
+            if (res.status == 200) {
+                const songs = res.data.songs
+                for (let i = 0; i < songs.length; i++) {
+                    parent.find(".songs").append(`<div class="song">${songs[i].name} (${songs[i].artists}) - <a target="_new" href="${songs[i].url}">Play Song</a></div>`)
+                }
+            } else {
+                parent.find("h3").after(`<div class='error'>Failed to get songs.</div>`)
+            }
+        }).catch(err => {
+            parent.find("h3").after(`<div class='error'>Failed to get songs!</div>`)
         })
+
+        return false
+
     })
 })

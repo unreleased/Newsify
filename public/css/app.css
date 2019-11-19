@@ -51,3 +51,12 @@ a {
   background-color: deepskyblue;
 }
 
+.song {
+  padding: 5px;
+  font-weight: bold
+}
+
+.error {
+  font-weight: bold;
+  color: red;
+}

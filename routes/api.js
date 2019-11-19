@@ -22,24 +22,44 @@ router.get('/songs/:query', async (req, res, next) => {
 });
 
 router.post('/search', async (req, res, next) => {
-    console.log(req.body)
-    
     try {
-        const article = `${req.body.article.title} - ${req.body.article.content}`
+        // get article and remove news source.
+        let article = `${req.body.article.title} - ${req.body.article.content}`.split(' - ')
+            article = article.splice(0, article.length - 1).join(' - ')
     
-        if (article) {
-            const entities = await Razortext.getEntities(article)
-    
-            return res.status(200).json({
-                success : true,
-                entities: entities
-            })
-        } else {
+        if (!article) {
             return res.status(400).json({
                 success: false,
                 message: 'Missing article information.'
             })
         }
+
+
+        // get entities
+        const entities = await Razortext.getEntities(article)
+
+        if (!entities) {
+            return res.status(400).json({
+                success: false,
+                message: 'Failed to find any valid entities.'
+            })
+        }
+
+        // get access token
+        if (req.session.data && req.session.data.access_token) {
+            const token = req.session.data.access_token
+            const songs = await Spotify.getSongList(entities, token)
+            return res.status(200).json({
+                success : true,
+                songs   : songs
+            })
+        } else {
+            return res.status(401).json({
+                success : false,
+                message : 'Unauthorized. Please login.'
+            })
+        }
+        
     } catch(err) {
         console.log(err)
         return res.status(500).json({
