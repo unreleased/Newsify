@@ -113,4 +113,13 @@ Spotify.getSongList = async (entities, token) => {
     return songs;
 }
 
+Spotify.createPlaylist = async () => {
+
+}
+
+Spotify.addSongToPlaylist = async () => {
+
+}
+
+
 module.exports = Spotify
