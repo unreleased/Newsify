@@ -3,7 +3,6 @@ const request = require('request-promise').defaults({
     json: true,
     simple: false,
     resolveWithFullResponse: true,
-    json: true,
 })
 
 

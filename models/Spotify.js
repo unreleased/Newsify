@@ -1,5 +1,6 @@
 const dotenv  = require('dotenv').config()
 const request = require('request-promise').defaults({
+    method: 'GET',
     json: true,
     simple: false,
     resolveWithFullResponse: true
@@ -54,6 +55,29 @@ Spotify.me = async (refresh) => {
         } else {
             return false
         }
+    }).catch(err => {
+        console.log(err)
+        return false
+    })
+}
+
+Spotify.getSongs = async (query) => {
+    const opts = {
+        url: `https://api.spotify.com/v1/search?q=${query}&type=track`,
+        headers: {
+            'Authorization': `Bearer BQApl2cDfZ49IbadEJkuRDmmg1fkgU-RF-swMOsgYngX9m3xdQ8rPZiT0aPMvPvYRXqhOW6yEW1VP-uf6b5wf9y3StqMOentPxPHNO18DvOrsVuZYQJ_2uXI5RrWjRqWkDi0cpRWVl6nv3xC0AswapbDVFc`
+        }
+    }
+
+    return request(opts).then(res => {
+        const tracks = []
+        for (let i = 0; i < 5; i++) {
+            const track = res.body.tracks.items[i]
+            console.log(track)
+            tracks.push(track)
+        }
+
+        return tracks
     }).catch(err => {
         console.log(err)
         return false
