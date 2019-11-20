@@ -17,8 +17,12 @@ $(document).ready(function() {
         axios(opts).then(res => {
             if (res.status == 200) {
                 const songs = res.data.songs
-                for (let i = 0; i < songs.length; i++) {
-                    parent.find(".songs").append(`<div class="song">${songs[i].name} (${songs[i].artists}) - <a target="_new" href="${songs[i].url}">Play Song</a></div>`)
+                if (songs.length > 0) {
+                    for (let i = 0; i < songs.length; i++) {
+                        parent.find(".songs").append(`<div class="song">${songs[i].name} (${songs[i].artists}) - <a target="_new" href="${songs[i].url}">Play Song</a></div>`)
+                    }
+                } else {
+                    parent.find("h3").after(`<div class='error'>Could not find any songs for this article.</div>`)
                 }
             } else {
                 parent.find("h3").after(`<div class='error'>Failed to get songs.</div>`)

@@ -24,9 +24,10 @@ router.get('/songs/:query', async (req, res, next) => {
 router.post('/search', async (req, res, next) => {
     try {
         // get article and remove news source.
-        let article = `${req.body.article.title} - ${req.body.article.content}`.split(' - ')
-            article = article.splice(0, article.length - 1).join(' - ')
-    
+        let title   = `${req.body.article.title} - ${req.body.article.content}`
+        let article = title.split(' - ').slice(0, title.split(' - ').length - 1)[0]
+        console.log(article)
+
         if (!article) {
             return res.status(400).json({
                 success: false,

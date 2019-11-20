@@ -25,17 +25,21 @@ Razortext.getEntities = async (query) => {
         let data     = res.body.response
         let entities = []
 
-        for (let i = 0; i < data.entities.length; i++) {
-            const entity = data.entities[i]
-            entities.push({
-                text: entity.matchedText,
-                revelance: entity.relevanceScore,
-                confidence: entity.confidenceScore,
-                score: (entity.relevanceScore * entity.confidenceScore)
-            })
-        }
+        console.log(res.body.response)
 
-        entities = entities.sort((a, b) => (a.score < b.score) ? 1 : -1)
+        if (data && data.entities) {
+            for (let i = 0; i < data.entities.length; i++) {
+                const entity = data.entities[i]
+                entities.push({
+                    text: entity.matchedText,
+                    revelance: entity.relevanceScore,
+                    confidence: entity.confidenceScore,
+                    score: (entity.relevanceScore * entity.confidenceScore)
+                })
+            }
+
+            entities = entities.sort((a, b) => (a.score < b.score) ? 1 : -1)
+        }
 
         return entities
     }).catch(err => {
