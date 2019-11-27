@@ -13,6 +13,3 @@ If you like to aquire your own API keys to fully test this project without issue
 * [Spotify Developers Panel](https://developer.spotify.com/)
 * [Newsify](https://newsapi.org/register)
 * [Razortext](https://www.textrazor.com/signup)
-
-
-test
